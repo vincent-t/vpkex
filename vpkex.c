@@ -2,9 +2,18 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
-#include <endian.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <endian.h>
+#include <byteswap.h>
+
+#if __BYTE_ORDER == __LITTLE_ENDIAN
+#define le16toh(n) (n)
+#define le32toh(n) (n)
+#elif __BYTE_ORDER == __BIG_ENDIAN
+#define le16toh(n) bswap_16(n)
+#define le32toh(n) bswap_32(n)
+#endif
 
 void print_usage(const char* app)
 {

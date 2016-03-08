@@ -1,12 +1,14 @@
-.PHONY: clean
+CC = gcc
+CFLAGS = -O2 -Wall -std=c99
 
-CFLAGS ?= -O2 -Wall -Werror -Wpedantic
+OUTFILE = vpkex
+OBJS = vpkex.o
+SRCS = vpkex.c
 
-TARGET = vpkex
-SOURCES = $(wildcard *.c)
-OBJECTS = $(SOURCES:%.c=%.o)
-
-$(TARGET): $(OBJECTS)
+$(OUTFILE): $(OBJS)
+	$(CC) $(CFLAGS) -o $(OUTFILE) $(OBJS)
+$(OBJS): $(SRCS)
+	$(CC) $(CFLAGS) -c $(SRCS)
 
 clean:
-	$(RM) $(TARGET) $(OBJECTS)
+	$(RM) $(OUTFILE) $(OBJS)
